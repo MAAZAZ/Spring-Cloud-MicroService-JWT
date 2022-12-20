@@ -1,27 +1,31 @@
-package org.glsid.securityservicce;
+package org.glsid.securityservice;
 
-import org.glsid.securityservicce.entities.AppRole;
-import org.glsid.securityservicce.entities.AppUser;
-import org.glsid.securityservicce.service.AccountService;
+import org.glsid.securityservice.entities.AppRole;
+import org.glsid.securityservice.entities.AppUser;
+import org.glsid.securityservice.service.AccountService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import java.util.ArrayList;
 
 @SpringBootApplication
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class SecurityServicceApplication {
+public class SecurityServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SecurityServicceApplication.class, args);
+        SpringApplication.run(SecurityServiceApplication.class, args);
     }
 
     @Bean
-    CommandLineRunner start(AccountService accountService){
+    CommandLineRunner start(final AccountService accountService, final RepositoryRestConfiguration repositoryRestConfiguration){
         return args ->  {
+            // repositoryRestConfiguration.exposeIdsFor(AppRole.class);
+            // repositoryRestConfiguration.exposeIdsFor(AppUser.class);
+            // data for test only
             accountService.addNewRole( new AppRole(null,"USER"));
             accountService.addNewRole( new AppRole(null,"ADMIN"));
             accountService.addNewRole( new AppRole(null,"CUSTOMER_MANAGER"));

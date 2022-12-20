@@ -1,4 +1,4 @@
-package org.glsid.securityservicce.entities;
+package org.glsid.securityservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -13,14 +13,14 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class AppUser {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
     private String username;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<AppRole> appRoles=new ArrayList<>();
+    private Collection<AppRole> appRoles = new ArrayList<>();
 }
 

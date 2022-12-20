@@ -1,9 +1,9 @@
-package org.glsid.securityservicce.service;
+package org.glsid.securityservice.service;
 
-import org.glsid.securityservicce.entities.AppRole;
-import org.glsid.securityservicce.entities.AppUser;
-import org.glsid.securityservicce.repository.AppRoleRepository;
-import org.glsid.securityservicce.repository.AppUserRepository;
+import org.glsid.securityservice.entities.AppRole;
+import org.glsid.securityservice.entities.AppUser;
+import org.glsid.securityservice.repository.AppRoleRepository;
+import org.glsid.securityservice.repository.AppUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,34 +16,34 @@ public class AccountServiceImpl implements AccountService {
     private AppRoleRepository appRoleRepository;
     private PasswordEncoder passwordEncoder;
 
-    public AccountServiceImpl(AppUserRepository appUserRepository, AppRoleRepository appRoleRepository,
-                              PasswordEncoder passwordEncoder) {
+    //@Autowired
+    public AccountServiceImpl(final AppUserRepository appUserRepository, final AppRoleRepository appRoleRepository, final PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
         this.appRoleRepository = appRoleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public AppUser addNewUser(AppUser appUser) {
-        String password=appUser.getPassword();
+    public AppUser addNewUser(final AppUser appUser) {
+        final String password = appUser.getPassword();
         appUser.setPassword(passwordEncoder.encode(password));
         return appUserRepository.save(appUser);
     }
 
     @Override
-    public AppRole addNewRole(AppRole appRole) {
+    public AppRole addNewRole(final AppRole appRole) {
         return appRoleRepository.save(appRole);
     }
 
     @Override
-    public void addRoleToUser(String username, String roleName) {
-        AppUser appUser=appUserRepository.findByUsername(username);
-        AppRole appRole=appRoleRepository.findByRoleName(roleName);
+    public void addRoleToUser(final String username, final String roleName) {
+        final AppUser appUser = appUserRepository.findByUsername(username);
+        final AppRole appRole = appRoleRepository.findByRoleName(roleName);
         appUser.getAppRoles().add(appRole);
     }
 
     @Override
-    public AppUser loadUserByUsername(String username) {
+    public AppUser loadUserByUsername(final String username) {
         return appUserRepository.findByUsername(username);
     }
 

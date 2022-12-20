@@ -1,7 +1,6 @@
-package org.glsid.securityservicce.service;
+package org.glsid.securityservice.service;
 
-import org.glsid.securityservicce.entities.AppUser;
-import org.springframework.context.annotation.Bean;
+import org.glsid.securityservice.entities.AppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,17 +16,15 @@ import java.util.Collection;
 public class UserDetailsServiceImpl implements UserDetailsService {
     private AccountService accountService;
 
-    public UserDetailsServiceImpl(AccountService accountService) {
+    public UserDetailsServiceImpl(final AccountService accountService) {
         this.accountService = accountService;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser=accountService.loadUserByUsername(username);
-        Collection<GrantedAuthority> authorities=new ArrayList<>();
-        appUser.getAppRoles().forEach(r->{
-            authorities.add(new SimpleGrantedAuthority(r.getRoleName()));
-        });
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        final AppUser appUser = accountService.loadUserByUsername(username);
+        final Collection<GrantedAuthority> authorities = new ArrayList<>();
+        appUser.getAppRoles().forEach(r-> authorities.add(new SimpleGrantedAuthority(r.getRoleName())));
         return new User(appUser.getUsername(), appUser.getPassword(), authorities);
     }
 }

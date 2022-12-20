@@ -1,10 +1,10 @@
-package org.glsid.securityservicce;
+package org.glsid.securityservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SecurityServicceApplicationTests {
+class SecurityServiceApplicationTests {
 
     @Test
     void contextLoads() {
